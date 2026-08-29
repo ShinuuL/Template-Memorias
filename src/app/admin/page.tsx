@@ -24,15 +24,26 @@ export default async function AdminPage() {
       </p>
 
       {memories.length === 0 ? (
-        <div className="rounded-lg border border-dashed border-neutral-300 bg-white p-10 text-center text-neutral-500">
-          Nenhuma memória criada ainda.
-          <br />
-          <Link
-            href="/admin/memorias/nova"
-            className="mt-2 inline-block text-rose-500 underline"
-          >
-            Criar a primeira
-          </Link>
+        <div className="rounded-lg border border-dashed border-neutral-300 bg-white p-8 text-left">
+          <p className="text-center font-medium text-neutral-700">Site limpo — comece por aqui</p>
+          <ol className="mx-auto mt-4 max-w-md list-decimal space-y-2 pl-5 text-sm text-neutral-600">
+            <li>
+              Configure a fachada em <Link href="/admin/config" className="text-rose-500 underline">Fachada</Link> (pergunta, resposta e cor).
+            </li>
+            <li>Crie a primeira memória no botão acima — título, carta, fotos da galeria e IDs do Spotify.</li>
+            <li>Teste como visualizador: abra a fachada em aba anônima e acerte a resposta.</li>
+          </ol>
+          <p className="mt-4 text-center text-xs text-neutral-400">
+            Guia completo em <code>INSTRUCOES.md</code>
+          </p>
+          <div className="mt-4 text-center">
+            <Link
+              href="/admin/memorias/nova"
+              className="inline-block rounded-md bg-rose-500 px-4 py-2 text-sm font-semibold text-white hover:bg-rose-600"
+            >
+              Criar a primeira
+            </Link>
+          </div>
         </div>
       ) : (
         <MemoryList memories={memories} />

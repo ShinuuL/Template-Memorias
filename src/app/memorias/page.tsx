@@ -40,8 +40,10 @@ export default async function MemoriasPage() {
       </header>
 
       {withCovers.length === 0 ? (
-        <p className="text-center text-neutral-500">
+        <p className="text-center leading-relaxed text-neutral-500">
           Ainda não há memórias por aqui. Logo logo teremos! 💛
+          <br />
+          <span className="text-sm">Se você é o admin, crie a primeira em /admin</span>
         </p>
       ) : (
         <div className="mx-auto grid max-w-4xl grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
