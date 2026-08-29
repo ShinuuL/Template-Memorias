@@ -1,3 +1,7 @@
+/* Fontes do Google usadas pelos temas das memórias.
+   Deve vir ANTES de qualquer outra regra (regra do CSS para @import). */
+@import url("https://fonts.googleapis.com/css2?family=Sofia&family=Shadows+Into+Light&family=Poppins:wght@400;500;600;700&family=Great+Vibes&family=Dancing+Script:wght@400;600;700&display=swap");
+
 @import "tailwindcss";
 
 :root {
@@ -12,15 +16,49 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html,
+body {
+  min-height: 100%;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* ---------------------------------------------------------------
+   Players do Spotify sem scrollbar visível
+   (requisito: "scroll das músicas invisível")
+   --------------------------------------------------------------- */
+.spotify-embed iframe {
+  overflow: hidden;
+}
+
+/* Esconde a barra de rolagem em navegadores WebKit (Chrome, Safari, Edge) */
+.spotify-embed::-webkit-scrollbar {
+  display: none;
+}
+
+/* Esconde em Firefox */
+.spotify-embed {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+/* Utilitário para esconder a barra de rolagem também na galeria horizontal
+   de fotos, caso seja usada */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+/* Cartão de foto estilo polaroid, com aparencia "manual" (giro leve) */
+.polaroid {
+  background: #fff;
+  padding: 10px 10px 14px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
 }
