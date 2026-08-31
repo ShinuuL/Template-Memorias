@@ -62,3 +62,12 @@ body {
   padding: 10px 10px 14px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
 }
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}

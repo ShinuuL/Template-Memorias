@@ -132,7 +132,8 @@ export async function saveMemory(
       .select("storage_path")
       .in("id", deleted);
     await supabase.from("photos").delete().in("id", deleted);
-    const paths = (rows ?? []).map((r) => r.storage_path);
+    const paths = (rows ?? [])
+      .map((r) => r.storage_path.replace(/^fotos\//, ""));
     if (paths.length) {
       await supabase.storage.from("fotos").remove(paths);
     }
@@ -158,7 +159,7 @@ export async function saveMemory(
       }
 
       const name = `${crypto.randomUUID()}.${extForMime(file.type.toLowerCase())}`;
-      const storagePath = `fotos/${finalId}/${name}`;
+      const storagePath = `${finalId}/${name}`;
 
       const { error: upErr } = await supabase.storage
         .from("fotos")
@@ -191,7 +192,7 @@ export async function deleteMemory(id: string): Promise<{ ok: boolean; error?: s
     .from("photos")
     .select("storage_path")
     .eq("memory_id", id);
-  const paths = (photos ?? []).map((p) => p.storage_path);
+  const paths = (photos ?? []).map((p) => p.storage_path.replace(/^fotos\//, ""));
   if (paths.length) {
     await supabase.storage.from("fotos").remove(paths);
   }

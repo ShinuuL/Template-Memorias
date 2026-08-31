@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { getMemories, getPhotos, publicPhotoUrl } from "@/lib/data";
+import MemoryGrid from "@/components/memorias/memory-grid";
 
 export const metadata: Metadata = {
   title: "Nossas Memórias",
@@ -46,55 +46,7 @@ export default async function MemoriasPage() {
           <span className="text-sm">Se você é o admin, crie a primeira em /admin</span>
         </p>
       ) : (
-        <div className="mx-auto grid max-w-4xl grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {withCovers.map(({ memory, coverUrl }, i) => {
-            const rotate = i % 2 === 0 ? "rotate-[-1deg]" : "rotate-[1deg]";
-            return (
-              <Link
-                key={memory.id}
-                href={`/memorias/${memory.id}`}
-                className="transition hover:-translate-y-1 hover:shadow-lg"
-              >
-                <article
-                  className={`polaroid ${rotate} flex h-full flex-col`}
-                  style={{ backgroundColor: memory.theme.polaroidBg }}
-                >
-                  <div className="flex h-52 items-center justify-center overflow-hidden">
-                    {coverUrl ? (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img
-                        src={coverUrl}
-                        alt={memory.title}
-                        className="h-full w-full object-cover"
-                      />
-                    ) : (
-                      <span
-                        className="text-5xl"
-                        style={{ color: memory.theme.accent }}
-                      >
-                        💌
-                      </span>
-                    )}
-                  </div>
-                  <div className="flex flex-1 flex-col justify-center gap-1 px-3 py-3 text-center">
-                    <h2
-                      className="text-2xl leading-tight"
-                      style={{
-                        fontFamily: "'Sofia', cursive",
-                        color: memory.theme.accent,
-                      }}
-                    >
-                      {memory.title}
-                    </h2>
-                    {memory.date && (
-                      <p className="text-sm opacity-70">{memory.date}</p>
-                    )}
-                  </div>
-                </article>
-              </Link>
-            );
-          })}
-        </div>
+        <MemoryGrid items={withCovers} />
       )}
     </main>
   );

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { AnimatePresence, motion } from "framer-motion";
 import {
   DndContext,
   closestCenter,
@@ -38,23 +39,31 @@ function SortableRow({
     transition,
     zIndex: isDragging ? 50 : undefined,
     opacity: isDragging ? 0.6 : 1,
-  };
+    boxShadow: isDragging ? "0 12px 24px rgba(0,0,0,.12)" : "0 1px 3px rgba(0,0,0,.08)",
+  } as React.CSSProperties;
 
   return (
-    <li
+    <motion.li
       ref={setNodeRef}
       style={style}
+      layout
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, scale: 0.95 }}
+      transition={{ type: "spring", stiffness: 300, damping: 24 }}
       className="flex items-center gap-3 rounded-lg border border-neutral-200 bg-white px-3 py-3 shadow-sm"
     >
       {/* Alça de arrastar */}
-      <button
+      <motion.button
         {...attributes}
         {...listeners}
+        whileHover={{ scale: 1.15 }}
+        whileTap={{ scale: 0.9 }}
         aria-label="Arrastar para reordenar"
         className="cursor-grab touch-none select-none text-neutral-400 hover:text-neutral-600 active:cursor-grabbing"
       >
         ⠿
-      </button>
+      </motion.button>
 
       <span className="w-6 text-center text-sm text-neutral-400">{index + 1}</span>
 
@@ -79,7 +88,7 @@ function SortableRow({
       >
         Excluir
       </button>
-    </li>
+    </motion.li>
   );
 }
 
@@ -115,19 +124,21 @@ export default function MemoryList({ memories }: { memories: Memory[] }) {
   return (
     <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
       <SortableContext items={items} strategy={verticalListSortingStrategy}>
-        <ul className="flex flex-col gap-2">
-          {items.map((id, index) => {
-            const memory = memories.find((m) => m.id === id);
-            return (
-              <SortableRow
-                key={id}
-                memory={memory as Memory}
-                index={index}
-                onDelete={handleDelete}
-              />
-            );
-          })}
-        </ul>
+        <AnimatePresence initial={false}>
+          <ul className="flex flex-col gap-2">
+            {items.map((id, index) => {
+              const memory = memories.find((m) => m.id === id);
+              return (
+                <SortableRow
+                  key={id}
+                  memory={memory as Memory}
+                  index={index}
+                  onDelete={handleDelete}
+                />
+              );
+            })}
+          </ul>
+        </AnimatePresence>
       </SortableContext>
     </DndContext>
   );

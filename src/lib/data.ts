@@ -98,6 +98,8 @@ export async function getSiteConfig(): Promise<SiteConfig> {
 // URL pública de uma foto no bucket 'fotos'.
 export function publicPhotoUrl(storagePath: string): string {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL ?? "";
-  // Caminho completo do objeto, em "fotos/<memory_id>/<arquivo>".
-  return `${url}/storage/v1/object/public/${storagePath}`;
+  // storagePath é salvo como "<memory_id>/<arquivo>" dentro do bucket fotos.
+  // Compatível com legado que salvava "fotos/<memory_id>/<arquivo>".
+  const path = storagePath.startsWith("fotos/") ? storagePath : `fotos/${storagePath}`;
+  return `${url}/storage/v1/object/public/${path}`;
 }
