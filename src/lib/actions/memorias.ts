@@ -179,7 +179,7 @@ export async function saveMemory(
   revalidatePath("/memorias");
   revalidatePath("/memorias/[id]", "page");
   revalidatePath("/admin", "layout");
-  redirect(memoryId ? "/admin" : `/admin/memorias/${finalId}`);
+  redirect("/admin?saved=1");
 }
 
 // ---------------------------------------------------------------------

@@ -45,9 +45,9 @@ export default function FachadaMotion({
       >
         <Link
           href="/login"
-          className="mt-10 inline-block text-xs text-black/40 underline hover:text-black/60"
+          className="mt-10 inline-flex items-center gap-2 rounded-full border border-black/10 bg-white/80 px-4 py-2 text-sm font-medium text-black/70 shadow-sm backdrop-blur transition hover:bg-white hover:text-black"
         >
-          área administrativa
+          <span aria-hidden>↗</span> área administrativa
         </Link>
       </motion.div>
     </motion.main>

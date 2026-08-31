@@ -4,11 +4,18 @@ import { getMemories } from "@/lib/data";
 
 export const dynamic = "force-dynamic";
 
-export default async function AdminPage() {
+export default async function AdminPage(props: PageProps<"/admin">) {
+  const searchParams = await props.searchParams;
+  const saved = searchParams?.saved === "1";
   const memories = await getMemories();
 
   return (
     <div className="flex flex-col gap-6">
+      {saved && (
+        <div className="rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm font-medium text-emerald-800">
+          ✓ Memória salva com sucesso!
+        </div>
+      )}
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold text-neutral-800">Memórias</h1>
         <Link

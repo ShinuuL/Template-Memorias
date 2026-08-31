@@ -23,8 +23,11 @@ export default async function LoginPage(props: PageProps<"/login">) {
         </p>
         <LoginForm next={next} />
       </div>
-      <Link href="/" className="text-sm text-neutral-500 underline hover:text-neutral-700">
-        ← Voltar para a fachada
+      <Link
+        href="/"
+        className="inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-white px-4 py-2 text-sm font-medium text-neutral-600 shadow-sm transition hover:bg-neutral-50 hover:text-neutral-800"
+      >
+        <span aria-hidden>←</span> Voltar para a fachada
       </Link>
     </main>
   );

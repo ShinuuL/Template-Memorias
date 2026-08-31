@@ -42,10 +42,10 @@ export default function MemoryView({
         {/* Navegação */}
         <Link
           href="/memorias"
-          className="self-start text-sm underline opacity-70"
+          className="inline-flex items-center gap-2 self-start rounded-full border border-black/10 bg-white/70 px-4 py-2 text-sm font-medium shadow-sm backdrop-blur transition hover:bg-white hover:shadow"
           style={{ fontFamily: "sans-serif" }}
         >
-          ← Todas as memórias
+          <span aria-hidden>←</span> Todas as memórias
         </Link>
 
         {/* Título */}
